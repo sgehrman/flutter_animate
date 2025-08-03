@@ -373,6 +373,12 @@ class _AnimateState extends State<Animate> with SingleTickerProviderStateMixin {
   }
 
   void _play() {
+  // delayed animations are being called after dispose()
+    if (!mounted) {
+      return;
+    }
+
+
     _delayed?.ignore(); // for poorly timed hot reloads.
     _updateValue();
     double? pos = widget.target;
